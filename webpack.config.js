@@ -1,6 +1,8 @@
 /**
  * Created by tangm on 2017/9/17.
  */
+const webpack = require('webpack');
+
 module.exports = {
     devtool: 'eval-source-map',//source-map  cheap-module-source-map  eval-source-map cheap-module-eval-source-map
     entry: __dirname + "/app/main.js",//已多次提及的唯一入口文件
@@ -29,8 +31,25 @@ module.exports = {
                     // }
                 },
                 exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    }, {
+                        loader: "css-loader",
+                        options: {
+                            modules: true
+                        }
+                    },{
+                        loader: "postcss-loader"
+                    }
+                ]
             }
         ]
-    }
-
+    },
+    plugins: [
+        new webpack.BannerPlugin('版权所有，翻版必究')
+    ]
 }
